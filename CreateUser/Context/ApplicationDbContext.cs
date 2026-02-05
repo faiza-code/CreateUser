@@ -9,22 +9,16 @@ namespace CreateUser.Context
 {
     public class ApplicationDbContext : IdentityDbContext
     {
+            public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+                : base(options)
+            {
+            }
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-
+            public DbSet<User> Users { get; set; }
         }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-            
-        }
-
-        public DbSet<User> user { get; set; }
-        public DbSet<CreateUser> createUser { get; set; }
-     
     }
+
+
 }
+}
+-

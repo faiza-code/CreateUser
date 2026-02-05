@@ -1,93 +1,33 @@
-using CreateUser.Context;
 using CreateUser.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace CreateUser.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        private readonly UserManager<User> _userManager;
+        private readonly ILogger<HomeController> _logger;
 
-
-        public HomeController(ApplicationDbContext db, UserManager<User> userManager)
+        public HomeController(ILogger<HomeController> logger)
         {
-            _db = db;
-            _userManager = userManager;
+            _logger = logger;
         }
 
         public IActionResult Index()
         {
-            var userId = _userManager.GetUserId(User);
-            var users = _db.user
-              .Include(t => t.user)
-              .Where(t => t.UserId == userId)
-              .ToList();
-
-            return View(users);
-        }
-
-        public IActionResult Details(int id)
-        {
-            var create = _db.user.Include(w => w.createUser).FirstOrDefault(t => t.Id == id);
-            return View(create);
-
-        }
-        public IActionResult Create()
-        {
-            var create= new SelectList(_db.createUser, "Id", "Name");
             
+            return RedirectToAction("Index", "User");
+        }
 
-            ViewBag.UserList = create;
-
+        public IActionResult Privacy()
+        {
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Create( CreateUser obj)
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
         {
-            if (ModelState.IsValid)
-            {
-                obj.Id = _userManager.GetUserId(createUser);
-                _db.user.Add(obj);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            var cats = new SelectList(_db.createUser, "Id", "Name");
-            ViewBag.UserList = cats;
-
-            return View(obj);
-        }
-
-        public IActionResult Update(int id)
-        {
-            var user = _db.user.Include(w => w.CreateUser).FirstOrDefault(t => t.Id == id);
-            var create = new SelectList(_db.createUser, "Id", "Name");
-           
-
-            ViewBag.UserList = user;
-            return View(create);
-        }
-        [HttpPost]
-        public IActionResult Update(User obj)
-        {
-            obj.Id = _userManager.GetUserId(User);
-            if (ModelState.IsValid)
-            {
-                _db.user.Update(obj);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            var create = new SelectList(_db.createUser, "Id", "Name");
-            ViewBag.UserList = create;
-
-            return View(obj);
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

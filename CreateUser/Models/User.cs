@@ -1,28 +1,28 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CreateUser.Models
 {
     public class User
     {
-       
-
-        [MaxLength(50, ErrorMessage = "The Name Should be Less than 10 Characters")]
-        public string Name { get; set; }
-        public string Email { get; set; }
-       
-        public int PhoneNumber { get; set; }
-
-        public DateTime BOD { get; set; }
-
-
-
-        [ForeignKey(nameof(CreateUser))]
+        [Key]
         public int Id { get; set; }
 
-        public CreateUser CreateUser { get; set; }
+        [Required(ErrorMessage = "Name is required")]
+        [MaxLength(50, ErrorMessage = "The Name should be less than 50 characters")]
+        public string Name { get; set; }
 
-        
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid email address")]
+        public string Email { get; set; }
 
+        [Required(ErrorMessage = "Phone Number is required")]
+        [Phone(ErrorMessage = "Invalid phone number")]
+        [MaxLength(20)]
+        public string PhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "Birth of Day is required")]
+        [Display(Name = "Birth Date")]
+        [DataType(DataType.Date)]
+        public DateTime BirthDate { get; set; }
     }
 }
