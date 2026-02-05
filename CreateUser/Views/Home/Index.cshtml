@@ -1,44 +1,16 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-@model List<CreateUser>
-@section Styles {
-    <link rel="stylesheet" href="~/css/Home.css" />
-}
 
-
-<div class="user-wrapper">
-    <div class="user-header">
-        <h1>Create New User </h1>
-        <a asp-action="Create" asp-controller="Home" class="btn-primary"> New User</a>
-    </div>
-
-    @if (Model.Count > 0)
-    {
-        <div class="user-grid">
-            @foreach (var item in Model)
-            {
-                <div class="user-card">
-                    <div class="user-header">
-                        <span class="user-title">@item.Name</span>
-                        <div class="user-actions">
-                            <a asp-action="Details" asp-controller="Home" asp-route-id="@item.Id" class="btn-detail">View</a>
-                            <a asp-action="Update" asp-controller="Home" asp-route-id="@item.Id" class="btn-edit">Edit</a>
-                            <a asp-action="Delete" asp-controller="Home" asp-route-id="@item.Id" class="btn-delete">Delete</a>
-                        </div>
-                    </div>
-
-                </div>
-            }
-        </div>
-    }
-    else
-    {
-        <div class="no-user-card">
-            <div style="font-size: 5rem; margin-bottom: 1.5rem;">User Information</div>
-            <h2>No User Yet</h2>
-            <p>Get started by Adding first User!</p>
-            <a asp-action="Create" asp-controller="Home" class="btn-primary">Add User !</a>
-        </div>
-    }
+<div class="text-center">
+    <h1 class="display-4">Welcome to User Management System</h1>
+    <p class="lead">Manage your users efficiently with our easy-to-use interface.</p>
+    <p>
+        <a asp-controller="User" asp-action="Index" class="btn btn-primary btn-lg mt-3">
+            <i class="bi bi-people"></i> View All Users
+        </a>
+        <a asp-controller="User" asp-action="Create" class="btn btn-success btn-lg mt-3">
+            <i class="bi bi-plus-circle"></i> Add New User
+        </a>
+    </p>
 </div>
