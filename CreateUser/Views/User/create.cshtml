@@ -1,0 +1,51 @@
+﻿@model User
+@section Styles {
+    <link rel="stylesheet" href="~/css/Home.css" />
+}
+
+<div class="create-form-wrapper">
+    <div class="create-card">
+        <div class="card-header">
+            <h2> Add User</h2>
+            <a asp-controller="Home" asp-action="Index" class="btn-secondary">Back to Add New User</a>
+        </div>
+
+        <form method="post" asp-controller="Home" asp-action="Create">
+            <div asp-validation-summary="All" class="error-summary"></div>
+
+            <div class="input-group">
+                <input asp-for="Name" class="modern-input" placeholder=" " />
+                <label asp-for="Name" class="input-label">User Name :</label>
+                <span asp-validation-for="Name" class="error-text"></span>
+            </div>
+
+            <div class="input-group">
+                <input asp-for="Email" class="modern-input" placeholder=" " />
+                <label asp-for="Email" class="input-label">Email :</label>
+                <span asp-validation-for="Email" class="error-text"></span>
+            </div>
+
+            <div class="input-group">
+                <input asp-for="PhoneNumber" class="modern-input" placeholder=" " />
+                <label asp-for="PhoneNumber" class="input-label">Phone Number :</label>
+                <span asp-validation-for="PhoneNumber" class="error-text"></span>
+            </div>
+
+            <div class="input-group">
+                <input asp-for="Email" class="modern-input" placeholder=" " />
+                <label asp-for="Email" class="input-label">Email :</label>
+                <span asp-validation-for="Email" class="error-text"></span>
+            </div>
+
+            <div class="input-group">
+                <input asp-for="BOD" class="modern-input" placeholder=" " />
+                <label asp-for="BOD" class="input-label">BirthOfDay :</label>
+                <span asp-validation-for="BOD" class="error-text"></span>
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit" class="btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
